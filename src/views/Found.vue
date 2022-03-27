@@ -48,40 +48,138 @@
 <!--      </el-timeline>-->
 
 
-    <el-row>
-        <el-card :body-style="{ padding: '0px' }" class="card">
-          <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic17.997788.com%2F_pic_search%2F00%2F08%2F25%2F11%2F8251198a.jpg&refer=http%3A%2F%2Fpic17.997788.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1649148378&t=73c21a3e0155eae4c859afeca0c7eec9" class="image">
-          <div style="padding: 14px;">
-            <span>学生卡</span>
-            <div class="bottom clearfix">
-              <time class="time">2022/02/01</time>
-            </div>
-            <span>丢失地：食堂</span>
-            <el-button type="text" class="button">捡到</el-button>
-          </div>
-        </el-card>
+<!--    <el-row>-->
+<!--        <el-card :body-style="{ padding: '0px' }" class="card">-->
+<!--          <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic17.997788.com%2F_pic_search%2F00%2F08%2F25%2F11%2F8251198a.jpg&refer=http%3A%2F%2Fpic17.997788.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1649148378&t=73c21a3e0155eae4c859afeca0c7eec9" class="image">-->
+<!--          <div style="padding: 14px;">-->
+<!--            <span>学生卡</span>-->
+<!--            <div class="bottom clearfix">-->
+<!--              <time class="time">2022/02/01</time>-->
+<!--            </div>-->
+<!--            <span>丢失地：食堂</span>-->
+<!--            <el-button type="text" class="button">捡到</el-button>-->
+<!--          </div>-->
+<!--        </el-card>-->
 
-      <el-card :body-style="{ padding: '0px' }" class="card">
-        <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fi05.c.aliimg.com%2Fimg%2Fibank%2F2012%2F647%2F614%2F656416746_1229097843.jpg&refer=http%3A%2F%2Fi05.c.aliimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1649148287&t=5a27d73d21ce7fb81c974bbf434e6c13" class="image">
+<!--      <el-card :body-style="{ padding: '0px' }" class="card">-->
+<!--        <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fi05.c.aliimg.com%2Fimg%2Fibank%2F2012%2F647%2F614%2F656416746_1229097843.jpg&refer=http%3A%2F%2Fi05.c.aliimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1649148287&t=5a27d73d21ce7fb81c974bbf434e6c13" class="image">-->
+<!--        <div style="padding: 14px;">-->
+<!--          <span>钥匙</span>-->
+<!--          <div class="bottom clearfix">-->
+<!--            <time class="time">2022/02/03</time>-->
+<!--          </div>-->
+<!--          <span>丢失地：食堂</span>-->
+<!--          <el-button type="text" class="button">捡到</el-button>-->
+<!--        </div>-->
+<!--      </el-card>-->
+<!--    </el-row>-->
+
+<!--  <el-pagination class="mpage"-->
+<!--                 background-->
+<!--                 layout="prev, pager, next"-->
+<!--                 :current-page=currentPage-->
+<!--                 :page-size=pageSize-->
+<!--                 @current-change=page-->
+<!--                 :total="total">-->
+<!--  </el-pagination>-->
+
+
+<!--    <div class="found-contain">-->
+<!--    <el-container>-->
+<!--        <el-header>Header</el-header>-->
+<!--      <el-container>-->
+<!--        <el-aside width="200px">Aside</el-aside>-->
+<!--        <el-main>Main</el-main>-->
+<!--        </el-container>-->
+<!--        <el-footer>Footer</el-footer>-->
+<!--      </el-container>-->
+<!--    </div>-->
+
+    <el-row>
+      <el-card :body-style="{ padding: '0px' ,marginRight:'10px'}" class="card">
+        <!-- 图片 -->
+        <div class="demo-image">
+          <el-image
+              style="width: 200px; height: 200px; text-align: center"
+              src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic17.997788.com%2F_pic_search%2F00%2F08%2F25%2F11%2F8251198a.jpg&refer=http%3A%2F%2Fpic17.997788.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1649148378&t=73c21a3e0155eae4c859afeca0c7eec9"></el-image>
+        </div>
+        <!-- 描述 -->
         <div style="padding: 14px;">
-          <span>钥匙</span>
+          <div><h3>学生卡</h3></div>
           <div class="bottom clearfix">
-            <time class="time">2022/02/03</time>
+            <time class="time">2022/02/01</time>
           </div>
-          <span>丢失地：食堂</span>
-          <el-button type="text" class="button">捡到</el-button>
+          <div class="mypadding"><span>拾到地点：食堂</span></div>
+          <div class="mypadding"><span>描述：学生卡122222</span></div>
+          <div class="mypadding"><el-button type="primary">认领</el-button></div>
         </div>
       </el-card>
-    </el-row>
 
-  <el-pagination class="mpage"
-                 background
-                 layout="prev, pager, next"
-                 :current-page=currentPage
-                 :page-size=pageSize
-                 @current-change=page
-                 :total="total">
-  </el-pagination>
+      <el-card :body-style="{ padding: '0px' ,marginLeft:'10px'}" class="card">
+        <!-- 图片 -->
+        <div class="demo-image">
+          <el-image
+              style="width: 200px; height: 200px; text-align: center"
+              src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fi05.c.aliimg.com%2Fimg%2Fibank%2F2012%2F647%2F614%2F656416746_1229097843.jpg&refer=http%3A%2F%2Fi05.c.aliimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1649148287&t=5a27d73d21ce7fb81c974bbf434e6c13"></el-image>
+        </div>
+        <!-- 描述 -->
+        <div style="padding: 14px;">
+          <div><h3>钥匙</h3></div>
+          <div class="bottom clearfix">
+            <time class="time">2022/02/01</time>
+          </div>
+          <div class="mypadding"><span>丢失地：食堂</span></div>
+          <div class="mypadding"><span>描述：钥匙</span></div>
+          <div class="mypadding"><el-button type="primary">认领</el-button></div>
+        </div>
+      </el-card>
+      <el-card :body-style="{ padding: '0px' ,marginLeft:'10px'}" class="card">
+        <!-- 图片 -->
+        <div class="demo-image">
+          <el-image
+              style="width: 200px; height: 200px; text-align: center"
+              src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic17.997788.com%2F_pic_search%2F00%2F08%2F25%2F11%2F8251198a.jpg&refer=http%3A%2F%2Fpic17.997788.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1649148378&t=73c21a3e0155eae4c859afeca0c7eec9"></el-image>
+        </div>
+        <!-- 描述 -->
+        <div style="padding: 14px;">
+          <div><h3>学生卡</h3></div>
+          <div class="bottom clearfix">
+            <time class="time">2022/02/01</time>
+          </div>
+          <div class="mypadding"><span>丢失地：食堂</span></div>
+          <div class="mypadding"><span>描述：学生卡122222</span></div>
+          <div class="mypadding"><el-button type="primary">认领</el-button></div>
+        </div>
+      </el-card>
+      <el-card :body-style="{ padding: '0px' ,marginLeft:'10px'}" class="card">
+        <!-- 图片 -->
+        <div class="demo-image">
+          <el-image
+              style="width: 200px; height: 200px; text-align: center"
+              src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic17.997788.com%2F_pic_search%2F00%2F08%2F25%2F11%2F8251198a.jpg&refer=http%3A%2F%2Fpic17.997788.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1649148378&t=73c21a3e0155eae4c859afeca0c7eec9"></el-image>
+        </div>
+        <!-- 描述 -->
+        <div style="padding: 14px;">
+          <div><h3>学生卡</h3></div>
+          <div class="bottom clearfix">
+            <time class="time">2022/02/01</time>
+          </div>
+          <div class="mypadding"><span>丢失地：食堂</span></div>
+          <div class="mypadding"><span>描述：学生卡122222</span></div>
+          <div class="mypadding"><el-button type="primary">认领</el-button></div>
+        </div>
+      </el-card>
+
+    </el-row>
+      <el-pagination class="mpage"
+                     background
+                     layout="prev, pager, next"
+                     :current-page=currentPage
+                     :page-size=pageSize
+                     @current-change=page
+                     :total="total">
+      </el-pagination>
+
   </div>
 </template>
 
@@ -179,12 +277,18 @@ export default {
 }
 
 .mpage{
-  max-width: 900px;
+  max-width: max-content;
   margin: 0 auto;
 }
 
 .card{
   width: 300px;
-  height: 300px;
+  height: 450px;
+  text-align: center;
+  padding-top: 10px
 }
+.mypadding{
+  padding-top: 10px;
+}
+
 </style>

@@ -23,7 +23,7 @@
                         <el-dropdown-menu>
                             <el-dropdown-item command="user">个人中心</el-dropdown-item>
                             <el-dropdown-item divided command="user">签到</el-dropdown-item>
-                            <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
+                            <el-dropdown-item divided command="logout">退出登录</el-dropdown-item>
 
                         </el-dropdown-menu>
                     </template>
@@ -56,7 +56,7 @@ export default {
         // 用户名下拉菜单选择事件
         const router = useRouter();
         const handleCommand = (command) => {
-            if (command == "loginout") {
+            if (command == "logout") {
                 localStorage.removeItem("ms_username");
                 router.push("/login");
             } else if (command == "user") {

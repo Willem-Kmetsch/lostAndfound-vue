@@ -9,7 +9,7 @@
           <el-option label="其他" value="beijing"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="丢失地点" prop="region">
+      <el-form-item label="拾到地点" prop="region">
         <el-select v-model="ruleForm.region" placeholder="请选择">
           <el-option label="食堂" value="shanghai"></el-option>
           <el-option label="教师" value="beijing"></el-option>
@@ -17,7 +17,7 @@
           <el-option label="其他" value="shanghai"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="丢失时间" required>
+      <el-form-item label="拾到时间" required>
         <el-col :span="11">
           <el-form-item prop="date1">
             <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1" style="width: 100%;"></el-date-picker>
