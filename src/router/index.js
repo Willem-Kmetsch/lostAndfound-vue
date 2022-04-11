@@ -11,6 +11,61 @@ const routes = [
         name: "aaa",
         component: () => import ( /* webpackChunkName: "aaa" */ "../views/aaa.vue")
     },
+    {
+        path:"/admin",
+        name:"Admin",
+        component:() => import ( /* webpackChunkName: "Admin" */ "../views/Admin.vue"),
+        children: [{
+            path: "/admin_found",
+            name: "admin_found",
+            meta: {
+                title: '失物招领'
+            },
+            component: () => import ( /* webpackChunkName: "Found" */ "../views/Admin_found.vue")
+        },
+            {
+                path: "/admin_lost",
+                name: "admin_lost",
+                meta: {
+                    title: '寻物启事'
+                },
+                component: () => import ( /* webpackChunkName: "Lost" */ "../views/Admin_lost.vue")
+            },
+            {
+                path: "/admin_scoreMarket",
+                name: "admin_scoreMarket",
+                meta: {
+                    title: '积分商城'
+                },
+                component: () => import ( /* webpackChunkName: "scoreMarket" */ "../views/Admin_scoreMarket.vue")
+            },
+            {
+                path: "/admin_addGoods",
+                name: "admin_addGoods",
+                meta: {
+                    title: '货物'
+                },
+                component: () => import ( /* webpackChunkName: "goods" */ "../views/Admin_addGoods.vue")
+            },
+            {
+                path: "/admin_userManage",
+                name: "admin_userManage",
+                meta: {
+                    title: '用户'
+                },
+                component: () => import ( /* webpackChunkName: "userManage" */ "../views/Admin_userManage.vue")
+            },
+            {
+                path: "/admin_exchangeGoods",
+                name: "admin_exchangeGoods",
+                meta: {
+                    title: '兑换'
+                },
+                component: () => import ( /* webpackChunkName: "exchange" */ "../views/Admin_exchangeGoods.vue")
+            },
+        ]
+
+    },
      {
         path: "/index",
         name: "Home",
@@ -97,6 +152,14 @@ const routes = [
             title: '登录'
         },
         component: () => import ( /* webpackChunkName: "login" */ "../views/Login.vue")
+    },
+    {
+        path: "/register",
+        name: "Register",
+        meta: {
+            title: '注册'
+        },
+        component: () => import ( /* webpackChunkName: "Register" */ "../views/Register.vue")
     },
 
 

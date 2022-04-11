@@ -12,19 +12,20 @@
                 <!-- 用户头像 -->
                 <div class="user-avator">
                     <img src="../assets/img/img.jpg" />
+<!--                  <img :src="user.avatar" />-->
                 </div>
                 <!-- 用户名下拉菜单 -->
                 <el-dropdown class="user-name" trigger="click" @command="handleCommand">
                     <span class="el-dropdown-link">
-                        {{username}}
+                        {{ user.username}}
                         <i class="el-icon-caret-bottom"></i>
                     </span>
                     <template #dropdown>
                         <el-dropdown-menu>
-                            <el-dropdown-item command="user">个人中心</el-dropdown-item>
-                            <el-dropdown-item divided command="user">签到</el-dropdown-item>
-                            <el-dropdown-item divided command="logout">退出登录</el-dropdown-item>
-
+                            <el-dropdown-item command="user" v-show="hasLogin">个人中心</el-dropdown-item>
+                            <el-dropdown-item divided v-show="hasLogin" :disabled="hasSignin" @click="signin">签到</el-dropdown-item>
+                            <el-dropdown-item divided command="logout" @click="logout()" v-show="hasLogin">退出登录</el-dropdown-item>
+                          <el-dropdown-item divided command="login" v-show="!hasLogin">登录</el-dropdown-item>
                         </el-dropdown-menu>
                     </template>
                 </el-dropdown>
@@ -36,9 +37,54 @@
 import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import picture from "../assets/img/img.jpg";
 export default {
-    setup() {
-        const username = localStorage.getItem("ms_username");
+  data() {
+    return {
+      hasLogin: false,
+      hasSignin : false,
+      user: {
+        userid : 1,
+        username: '请先登录',
+        avatar: picture
+      },
+    }
+  },
+
+
+  methods:{
+    logout(){
+      alert("logout")
+      console.log("logout")
+      const _this = this
+      this.$http.get('/user/logout', {
+        headers: {
+          "Authorization": localStorage.getItem("token")
+        }
+      }).then((res) => {
+        _this.$store.commit('REMOVE_INFO')
+        _this.$router.push('/login')
+      });
+    },
+    signin(){
+      this.$http.get('/signin/?userId=' + this.user.userid).then((res) => {
+        alert(res.data.data)
+        this.hasSignin = true
+      })
+
+    }
+  },
+  created() {
+    if(this.$store.getters.getUser) {
+      this.user.userid = this.$store.getters.getUser.id
+      this.user.username = this.$store.getters.getUser.username
+      // this.user.avatar = this.$store.getters.getUser.avatar
+      this.hasLogin = true
+    }
+  },
+
+  setup() {
+        // const username = localStorage.getItem("ms_username");
 
         const store = useStore();
         const collapse = computed(() => store.state.collapse);
@@ -58,19 +104,22 @@ export default {
         const handleCommand = (command) => {
             if (command == "logout") {
                 localStorage.removeItem("ms_username");
-                router.push("/login");
+                // router.push("/login");
             } else if (command == "user") {
-                router.push("/user");
+              router.push("/user");
+            }else if(command == "login"){
+              router.push("/login");
             }
         };
 
         return {
-            username,
+            // username,
             collapse,
             collapseChage,
             handleCommand,
         };
     },
+
 };
 </script>
 <style scoped>

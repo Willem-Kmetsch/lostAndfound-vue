@@ -2,11 +2,11 @@
   <div>
 
     <el-descriptions title="个人中心" direction="horizontal" :column="1" border>
-      <el-descriptions-item label="用户名">admin</el-descriptions-item>
-      <el-descriptions-item label="手机号">18100000000</el-descriptions-item>
-      <el-descriptions-item label="学校" >中山大学</el-descriptions-item>
-      <el-descriptions-item label="学号" >315720</el-descriptions-item>
-      <el-descriptions-item label="现有积分">10</el-descriptions-item>
+      <el-descriptions-item label="用户名">{{ user.username }}</el-descriptions-item>
+      <el-descriptions-item label="手机号">{{ user.telephone }}</el-descriptions-item>
+      <el-descriptions-item label="学校" >{{ user.school }}</el-descriptions-item>
+      <el-descriptions-item label="学号" >{{ user.stuid }}</el-descriptions-item>
+      <el-descriptions-item label="现有积分">{{user.score}}</el-descriptions-item>
     </el-descriptions>
     <el-row>
     <el-button type="primary">修改个人信息</el-button>
@@ -18,8 +18,22 @@
 </template>
 
 <script>
+import picture from "../assets/img/img.jpg";
+
 export default {
-  name: "User"
+  name: "User",
+  data() {
+    return {
+      userId:0,
+      user : {}
+    }
+  },
+  created() {
+    const _this = this
+    this.$http.get('/user/' + this.$store.getters.getUser.id).then((res) => {
+      _this.user = res.data.data
+    })
+  },
 }
 </script>
 

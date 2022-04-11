@@ -1,23 +1,23 @@
 <template>
   <div class="m-container">
-    <h3>失物招领</h3>
-    <Header></Header>
+    <h3>失物招领管理</h3>
+    <Admin_header></Admin_header>
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <el-form-item label="">
-      <el-input v-model="formInline.school" placeholder="学校"></el-input>
+        <el-input v-model="formInline.school" placeholder="学校"></el-input>
       </el-form-item>
-    <el-form-item label="物品类型">
-      <el-select v-model="formInline.type" placeholder="物品类型">
-        <el-option label="所有" value=""></el-option>
-        <el-option label="卡/身份证" value="1"></el-option>
-        <el-option label="数码产品" value="2"></el-option>
-        <el-option label="钥匙" value="3"></el-option>
-        <el-option label="书籍" value="4"></el-option>
-        <el-option label="眼镜" value="5"></el-option>
-        <el-option label="包" value="6"></el-option>
-        <el-option label="其他" value="7"></el-option>
-      </el-select>
-    </el-form-item>
+      <el-form-item label="物品类型">
+        <el-select v-model="formInline.type" placeholder="物品类型">
+          <el-option label="所有" value=""></el-option>
+          <el-option label="卡/身份证" value="1"></el-option>
+          <el-option label="数码产品" value="2"></el-option>
+          <el-option label="钥匙" value="3"></el-option>
+          <el-option label="书籍" value="4"></el-option>
+          <el-option label="眼镜" value="5"></el-option>
+          <el-option label="包" value="6"></el-option>
+          <el-option label="其他" value="7"></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="拾到地点">
         <el-select v-model="formInline.place" placeholder="拾到地点">
           <el-option label="所有" value=""></el-option>
@@ -57,23 +57,22 @@
           </div>
           <div class="mypadding"><span>拾到地点：{{ found.foundplace }}</span></div>
           <div class="mypadding"><span>描述：{{ found.itemexplain }}</span></div>
-          <div class="mypadding"><el-button type="primary" @click="claim(found.id)">认领</el-button></div>
+          <div class="mypadding"><el-button type="danger" @click="deletefound(found.id)">删除</el-button></div>
         </div>
       </el-card>
 
     </el-row>
-      <el-pagination class="mpage"
-                     background
-                     layout="prev, pager, next"
-                     :current-page=currentPage
-                     :page-size=pageSize
-                     @current-change=page
-                     :total="total">
-      </el-pagination>
+    <el-pagination class="mpage"
+                   background
+                   layout="prev, pager, next"
+                   :current-page=currentPage
+                   :page-size=pageSize
+                   @current-change=page
+                   :total="total">
+    </el-pagination>
 
   </div>
 </template>
-
 
 <script>
 export default {
@@ -130,94 +129,20 @@ export default {
         console.log(_this.founds)
       })
     },
-    // 查询
-    submit(){
-      const _this = this
-      this.$http.get('/found/').then(res =>{
-        _this.founds = res.data.data
-        console.log(_this.founds)
-        alert(_this.founds)
-      })
-      alert("aaa")
-    },
     // 图片
     getpic(id){
       return "/static/found/" + id
     },
 
-    claim(id){
-      console.log(id)
-      const _this = this
-      this.$http.get('/found/claim/?foundId=' + id,{
-        headers: {
-          "Authorization": localStorage.getItem("token")
-        }
-        }).then(res =>{
-        const userId = res.data.data.id
-        const userName = res.data.data.username
-        const telephone = res.data.data.telephone
-
-        _this.$alert('拾物者：' + userName + '' + '</br>' + '电话：' + telephone, '认领信息', {
-          confirmButtonText: '确认认领',
-          cancelButtonText : '取消',
-          dangerouslyUseHTMLString: true,
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '认领成功!'
-          });
-          _this.exceptional(userId,id)
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消'
-          });
-        });
+    deletefound(id){
+      this.$http.get('/found/deleteFound?id=' +  id ).then((res) => {
+        alert(res.data.data)
+        this.page(this.currentPage)
       })
-    },
-
-    exceptional(founderId, foundId) {
-      const _this = this
-      const dto = {
-        userId : this.userId,
-        founderId : founderId ,
-        foundId : foundId,
-        value : 0
-      }
-      _this.$prompt('请输入打赏积分', '打赏', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消'
-      }).then(({value}) => {
-        dto.value = value
-        _this.$http.post('/found/exceptional', dto,{
-          headers: {
-            "Authorization": localStorage.getItem("token")
-          },
-          }).then(res =>{
-            alert(res.data.data)
-            _this.page(_this.currentPage)
-          });
-      }).catch(() => {
-        _this.$message({
-          type: 'info',
-          message: '取消输入'
-        });
-      });
     }
   },
   mounted() {
     this.page(1);
-  },
-
-  created() {
-    if(this.$store.getters.getUser) {
-      const _this = this
-      this.userId = this.$store.getters.getUser.id
-      this.$http.get('/user/' + this.$store.getters.getUser.id).then((res) => {
-        _this.formInline.school = res.data.data.school
-      })
-
-    }
   },
 }
 </script>

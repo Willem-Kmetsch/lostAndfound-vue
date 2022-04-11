@@ -1,7 +1,7 @@
 <template>
   <div class="m-container">
-    <h3>寻物启事</h3>
-    <Header></Header>
+    <h3>寻物启事管理</h3>
+    <Admin_header></Admin_header>
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <el-form-item label="">
         <el-input v-model="formInline.school" placeholder="学校"></el-input>
@@ -58,7 +58,7 @@
           <div class="mypadding"><span>丢失地点：{{ lost.lostplace }}</span></div>
           <div class="mypadding"><span>描述：{{ lost.itemexplain }}</span></div>
           <div class="mypadding"><span>悬赏积分：{{ lost.score }}</span></div>
-          <div class="mypadding"><el-button type="primary" @click="claim(lost.id)">拾到</el-button></div>
+          <div class="mypadding"><el-button type="danger" @click="deleteLost(lost.id)">删除</el-button></div>
         </div>
       </el-card>
 
@@ -74,7 +74,6 @@
 
   </div>
 </template>
-
 
 <script>
 export default {
@@ -132,86 +131,19 @@ export default {
         console.log(_this.losts)
       })
     },
-    // 查询
-    submit(){
-      const _this = this
-      this.$http.get('/lost/').then(res =>{
-        _this.losts = res.data.data
-        console.log(_this.losts)
-        alert(_this.losts)
-      })
-    },
     // 图片
     getpic(id){
       return "/static/lost/" + id
     },
 
-    claim(id){
-      console.log(id)
+    deleteLost(id) {
       const _this = this
-      this.$http.get('/lost/returnLost/?lostId=' + id,{
-        headers: {
-          "Authorization": localStorage.getItem("token")
-        }
-      }).then(res =>{
-        const userId = res.data.data.id
-        const userName = res.data.data.username
-        const telephone = res.data.data.telephone
-
-        _this.$alert('失物者：' + userName + '' + '</br>' + '电话：' + telephone, '失主信息', {
-          confirmButtonText: '确认拾到',
-          cancelButtonText : '取消',
-          dangerouslyUseHTMLString: true,
-        }).then(() => {
-          _this.confirmclaim(id)
-          this.$message({
-            type: 'success',
-            message: '确认成功!'
-          });
-
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消'
-          });
-        });
-      })
-    },
-    confirmclaim(id){
-      this.$http.get('/lost/confirmclaim?lostId=' + id + '&userId=' + this.userId).then(res =>{
+      this.$http.get('/lost/deleteLost?id=' + id).then((res) => {
+        console.log(res)
         alert(res.data.data)
         this.page(this.currentPage)
       })
     },
-
-    // exceptional(losterId, lostId) {
-    //   const _this = this
-    //   const dto = {
-    //     userId : this.userId,
-    //     losterId : losterId ,
-    //     lostId : lostId,
-    //     value : 0
-    //   }
-    //   _this.$prompt('请输入打赏积分', '打赏', {
-    //     confirmButtonText: '确定',
-    //     cancelButtonText: '取消'
-    //   }).then(({value}) => {
-    //     dto.value = value
-    //     _this.$http.post('/lost/exceptional', dto,{
-    //       headers: {
-    //         "Authorization": localStorage.getItem("token")
-    //       },
-    //     }).then(res =>{
-    //       alert(res.data.data)
-    //       _this.page(_this.currentPage)
-    //     });
-    //   }).catch(() => {
-    //     _this.$message({
-    //       type: 'info',
-    //       message: '取消输入'
-    //     });
-    //   });
-    // }
   },
 
   mounted () {
